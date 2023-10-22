@@ -13,7 +13,7 @@ T du(T x) {return std::cos(x);}
 
 //численное дифференцирование с шагом h
 template <typename T>
-T Du(T x, T h)
+T Du(T (*u)(T), T x, T h)
 {return (u(x+h)-u(x))/h;}
 
 //вычисление ошибки
@@ -30,7 +30,7 @@ int main()
     for (int k = 3; k >= -3; k -= 1)
     {
         h = std::pow(std::numeric_limits<double>::epsilon(), 1.0/2)*std::pow(10.0, k);
-        file << h << "\t" << err(du(x0), Du(x0, h)) << "\n";
+        file << h << "\t" << err(du(x0), Du(u, x0, h)) << "\n";
     }
 
     file.close();
